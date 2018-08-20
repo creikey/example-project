@@ -23,7 +23,7 @@ $(BUILDDIR)/%.o : %.c
 	  sed -e 's/^ *//' -e 's/$$/:/' >> $*.d
 	@rm -f $*.d.tmp
 
-all: update $(OBJS)
+all: update libs $(OBJS)
 	mkdir -p $(BUILDDIR)
 	@echo "Building $(PROJECTNAME) v$(VERSION)..."
 	$(CC) $(OBJS) $(CFLAGS) -o $(EXNAME)
@@ -49,6 +49,10 @@ windows mac ios android:
 test: CFLAGS += -D$(TESTMACRO)
 test: EXNAME = TESTEXNAME
 test: clean all
+
+libs:
+	@echo "Building libraries..."
+	cd $(LIBDIR) && $(MAKE)
 
 update:
 	git submodule init
