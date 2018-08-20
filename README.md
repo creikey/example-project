@@ -9,6 +9,6 @@ Description
 
 `cd src/lib && git submodule add {url}`
 
-## Pulling all changes
+## Initializing repo and updating submodules
 
 `make update`
