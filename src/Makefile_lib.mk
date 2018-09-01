@@ -10,6 +10,7 @@ LIBNAME=lib$(PROJECTNAME).a
 TESTEXNAME=test_$(PROJECTNAME).out
 OBJS=$(addprefix $(BUILDDIR)/, $(SRC:.c=.o))
 OBJS_TEST=$(OBJS) + $(BUILDDIR)/main.o
+EXPORTDIR=$(../..)/exported
 CC=gcc
 AR=ar
 
