@@ -14,6 +14,9 @@ CC=gcc
 # pull in dependency info from existing .o files
 -include $(OBJS:.o=.d)
 
+linux: CFLAGS += -DLINUX
+linux: clean all
+
 # compile and generate dependency info
 $(BUILDDIR)/%.o : %.c
 	$(CC) -c $(CFLAGS) $< -o $@
@@ -40,8 +43,6 @@ debug: clean all
 debug-test: CFLAGS += -g
 debug-test: test
 
-linux: CFLAGS += -DLINUX
-linux: clean all
 
 windows mac ios android:
 	$(error $@ $(PLATERR))
