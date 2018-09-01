@@ -1,6 +1,9 @@
 # Title
 Description
 
+## Dependancies
+* [libc](https://www.gnu.org/software/libc/)
+
 ## Building
 
 `make`
