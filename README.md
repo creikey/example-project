@@ -3,7 +3,7 @@ Description
 
 ## Building
 
-`make build`
+`make`
 
 ## Adding a library
 
