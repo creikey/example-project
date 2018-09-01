@@ -12,3 +12,7 @@ Description
 ## Initializing repo and updating submodules
 
 `make update`
+
+## Where to put files
+
+All C files and headers go into `src/`, the `Makefile` will automatically find them

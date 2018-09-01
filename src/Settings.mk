@@ -1,8 +1,8 @@
-CFLAGS = -Wall -Ilib/ -Llib/ -std=c99
+CFLAGS = -Wall -Ilib/exported/ -Llib/exported/ -std=c99
 PROJECTNAME=example_project
 LIBDIR=lib
 BUILDDIR=build
-EXPORTDIR=$(../..)
+EXPORTDIR=$(../..)/exported
 TESTMACRO=DOTEST
 PLATERRPREFIX=not supported by
 VERSION=1

@@ -65,7 +65,7 @@ test: clean
 
 libs:
 	@echo "Building libraries..."
-	cd $(LIBDIR) && $(MAKE)
+	cd $(LIBDIR) && $(MAKE) library
 
 update:
 	git submodule init
