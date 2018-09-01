@@ -1,4 +1,4 @@
-.PHONY: all clean debug debug-test linux windows mac ios android test update
+.PHONY: buildmessage all clean debug debug-test linux windows mac ios android test update
 
 include Settings.mk
 
@@ -11,6 +11,7 @@ TESTEXNAME=test_$(PROJECTNAME).out
 OBJS=$(addprefix $(BUILDDIR)/, $(SRC:.c=.o))
 OBJS_TEST=$(OBJS) + $(BUILDDIR)/main.o
 EXPORTDIR=$(../..)/exported
+PLATFORM=null
 CC=gcc
 AR=ar
 
@@ -27,8 +28,7 @@ $(BUILDDIR)/%.o : %.c
 	  sed -e 's/^ *//' -e 's/$$/:/' >> $*.d
 	@rm -f $*.d.tmp
 
-all: update libs includedir $(LIBNAME)
-	@echo "Exporting $(PROJECTNAME) v$(VERSION)..."
+all: buildmessage update libs includedir $(LIBNAME)
 	cp -r $(PROJECTNAME) $(EXPORTDIR)
 	cp $(LIBNAME) $(EXPORTDIR)
 
@@ -55,6 +55,7 @@ debug-test: CFLAGS += -g
 debug-test: test
 
 linux: CFLAGS += -DLINUX
+linux: PLATFORM=linux
 linux: clean all
 
 windows mac ios android:
@@ -71,3 +72,9 @@ libs:
 update:
 	git submodule init
 	git submodule update
+
+buildmessage:
+	@echo "Exporting $(PROJECTNAME) v$(VERSION)..."
+	@echo "Target: $(PLATFORM)"
+	@echo "Time: `date`"
+

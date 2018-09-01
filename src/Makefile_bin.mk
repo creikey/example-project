@@ -1,5 +1,4 @@
-
-.PHONY: all clean debug debug-test linux windows mac ios android test update
+.PHONY: buildmessage all clean debug debug-test linux windows mac ios android test update
 
 include Settings.mk
 
@@ -9,6 +8,7 @@ HEADERS=$(wildcard *.h)
 EXNAME=$(PROJECTNAME).out
 TESTEXNAME=test_$(EXNAME)
 OBJS=$(addprefix $(BUILDDIR)/, $(SRC:.c=.o))
+PLATFORM=null
 CC=gcc
 
 # pull in dependency info from existing .o files
@@ -24,9 +24,8 @@ $(BUILDDIR)/%.o : %.c
 	  sed -e 's/^ *//' -e 's/$$/:/' >> $*.d
 	@rm -f $*.d.tmp
 
-all: update libs $(OBJS)
+all: buildmessage update libs $(OBJS)
 	mkdir -p $(BUILDDIR)
-	@echo "Building $(PROJECTNAME) v$(VERSION)..."
 	$(CC) $(OBJS) $(CFLAGS) -o $(EXNAME)
 
 clean:
@@ -43,6 +42,7 @@ debug-test: test
 
 
 linux: CFLAGS += -DLINUX
+linux: PLATFORM=linux
 linux: clean all
 
 windows mac ios android:
@@ -59,3 +59,8 @@ libs:
 update:
 	git submodule init
 	git submodule update
+
+buildmessage:
+	@echo "Building $(PROJECTNAME) v$(VERSION)..."
+	@echo "Target: $(PLATFORM)"
+	@echo "Time: `date`"
